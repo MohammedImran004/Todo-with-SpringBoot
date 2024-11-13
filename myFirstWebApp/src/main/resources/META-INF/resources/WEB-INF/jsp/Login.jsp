@@ -6,6 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Helooo This is my Login Page ${name}</h1>
+    <h1>Welcoe To My Login Page</h1>
+    <pre>${errorMessage}</pre>
+    <form method = "post">
+        Name:<input type = "text" name="name">
+        Password:<input type = "text" name = "password">
+        <input type = "submit">
+    </form>
 </body>
 </html>
