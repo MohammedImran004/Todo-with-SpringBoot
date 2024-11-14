@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Welcoe To My Login Page</h1>
+    <h1>Welcome To My Login Page</h1>
     <pre>${errorMessage}</pre>
     <form method = "post">
         Name:<input type = "text" name="name">
