@@ -6,13 +6,12 @@
     <title>Welcome</title>
 </head>
 <body>
-    <div>
+    <div class="container"> <div>
         Welcome Imran
     </div>
     <div>
-        <p><span>Your name is ${name}</span></p><br>
-        <p><span>Your password is ${pass}</span></p><br>
-        <a href="List-todos">Manage</a>
-    </div>
+        <p><a href="List-todos">Manage</a> your todos</p>
+    </div></div>
+   
 </body>
 </html>

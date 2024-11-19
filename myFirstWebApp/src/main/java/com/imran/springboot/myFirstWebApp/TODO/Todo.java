@@ -2,9 +2,11 @@ package com.imran.springboot.myFirstWebApp.TODO;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.Size;
 public class Todo {
     private int id;
     private String username;
+    @Size(min=10 , message="Enter atleast 10 characters")
     private String description;
     private LocalDate targetDate;
     private boolean isDone;
