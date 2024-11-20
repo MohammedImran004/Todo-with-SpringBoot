@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import jakarta.validation.Valid;
+
 
 
 @Controller
@@ -42,7 +44,7 @@ public class TodoController {
             return "add-todo";
         }
         String username = (String) model.get("name");
-        todoservice.addTodo(todo.getDescription(), username, todo.getIsDone());
+        todoservice.addTodo(todo.getDescription(), username,todo.getTargetDate(), todo.getIsDone());
         return "redirect:/List-todos"; // Redirect after successful submission
     }
     @RequestMapping("delete-todo")
@@ -51,5 +53,22 @@ public class TodoController {
         todoservice.deleteTodo(id);
         return "redirect:/List-todos";
     }
+    @GetMapping("update-todo")
+    public String Updatetodo(@RequestParam int id,ModelMap model) {
+        Todo todo = todoservice.FindById(id);
+        model.addAttribute("todo",todo);
+        return "add-todo";
+    }
+    @PostMapping("update-todo")
+    public String Updating(@Valid Todo todo, BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
+            System.out.println("Validation Errors: " + result.getAllErrors());
+            return "add-todo";
+        }
+        String username = (String) model.get("name");
+        todoservice.updateTodo(todo);
+        return "redirect:/List-todos"; // Redirect after successful submission
+    }
+    
 
 }

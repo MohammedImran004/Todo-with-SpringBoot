@@ -18,10 +18,21 @@ public class TodoService {
     public List<Todo> findByUsername(String username){
         return todos;
     }
-    public void addTodo(String description,String username,boolean date) {
-        todos.add(new Todo(++todocount,username,description,LocalDate.now().plusYears(++datecount),date));
+    public void addTodo(String description,String username,LocalDate date,boolean yes) {
+        todos.add(new Todo(++todocount,username,description,date,yes));
     }
     public void deleteTodo(int id) {
         todos.removeIf(todo -> todo.getId()==id);
     }
+    public Todo FindById(int id){
+        Todo todo = todos.stream()
+                 .filter(t -> t.getId() == id)
+                 .findFirst().orElse(null);
+        return todo;
+    }
+    public void updateTodo(Todo todo){
+        deleteTodo(todo.getId());
+        todos.add(todo);
+    }
+   
 }
