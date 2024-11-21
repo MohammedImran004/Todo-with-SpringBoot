@@ -28,6 +28,7 @@
         </div>
       </form:form>
     </div>
+    <script src="/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function () {
         $('#targetDate').datepicker({

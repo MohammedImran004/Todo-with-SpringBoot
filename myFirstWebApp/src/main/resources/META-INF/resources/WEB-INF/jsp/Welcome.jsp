@@ -14,7 +14,7 @@
         
         <!-- Welcome message -->
         <div class="text-center my-4">
-            <h1>Welcome, Imran</h1>
+            <h1>Welcome,${name} </h1>
         </div>
         
         <!-- Manage Todos Section -->

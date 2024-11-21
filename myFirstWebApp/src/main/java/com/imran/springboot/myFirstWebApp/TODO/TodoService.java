@@ -3,6 +3,7 @@ package com.imran.springboot.myFirstWebApp.TODO;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.springframework.stereotype.Service;
 @Service
@@ -16,7 +17,8 @@ public class TodoService {
         todos.add(new Todo(++todocount,"Imran","Learn FullStackDevelopment",LocalDate.now().plusYears(++datecount),false));
     }
     public List<Todo> findByUsername(String username){
-        return todos;
+        Predicate<? super Todo> predicate = todos -> todos.getUsername().equalsIgnoreCase(username);
+        return todos.stream().filter(predicate).toList();
     }
     public void addTodo(String description,String username,LocalDate date,boolean yes) {
         todos.add(new Todo(++todocount,username,description,date,yes));

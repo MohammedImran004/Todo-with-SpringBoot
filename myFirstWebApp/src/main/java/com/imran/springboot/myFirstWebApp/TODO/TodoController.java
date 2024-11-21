@@ -2,6 +2,8 @@ package com.imran.springboot.myFirstWebApp.TODO;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -32,7 +34,7 @@ public class TodoController {
     }
     @RequestMapping("add-todo")
     public String addTodos(ModelMap model){
-        String username = (String) model.get("name");
+        String username = getLoggedInUsername(model);
         Todo todo = new Todo(0, username, "Defaut desc", null, false);
         model.addAttribute("todo",todo);
         return "add-todo";
@@ -69,6 +71,9 @@ public class TodoController {
         todoservice.updateTodo(todo);
         return "redirect:/List-todos"; // Redirect after successful submission
     }
-    
+    private String getLoggedInUsername(ModelMap model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
+    }
 
 }
