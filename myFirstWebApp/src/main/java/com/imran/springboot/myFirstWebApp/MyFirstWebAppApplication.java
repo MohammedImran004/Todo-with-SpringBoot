@@ -1,5 +1,5 @@
 package com.imran.springboot.myFirstWebApp;
-
+ 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

@@ -17,18 +17,20 @@ import jakarta.validation.Valid;
 
 
 
-// @Controller
+@Controller
 @SessionAttributes("name")
-public class TodoController {
+public class TodoControllerjpa {
     private TodoService todoservice;
-    
-    public TodoController(TodoService todoservice) {
+    private TodoRepositary todoRepositary;
+    public TodoControllerjpa(TodoService todoservice,TodoRepositary todoRepositary) {
         this.todoservice = todoservice;
+        this.todoRepositary = todoRepositary;
     }
 
     @RequestMapping("List-todos")
     public String TodoHandler(ModelMap model){
-        List<Todo> todos = todoservice.findByUsername("Imran");
+        String username = getLoggedInUsername(model);
+        List<Todo> todos = todoRepositary.findByUsername(username);
         model.addAttribute("todos",todos);
         return "List-todos";
     }
@@ -54,12 +56,12 @@ public class TodoController {
     @RequestMapping("delete-todo")
     public String deleteTodo(@RequestParam int id){
         //  id = (int) model.get("id");
-        todoservice.deleteTodo(id);
+        todoRepositary.deleteById(id);
         return "redirect:/List-todos";
     }
     @GetMapping("update-todo")
     public String Updatetodo(@RequestParam int id,ModelMap model) {
-        Todo todo = todoservice.FindById(id);
+        Todo todo = todoRepositary.findById(id).get();
         model.addAttribute("todo",todo);
         return "add-todo";
     }
@@ -69,7 +71,9 @@ public class TodoController {
             System.out.println("Validation Errors: " + result.getAllErrors());
             return "add-todo";
         }
-        String username = (String) model.get("name");
+        String username = getLoggedInUsername(model);
+        todo.setUsername(username);
+        todoRepositary.save(todo);
         todoservice.updateTodo(todo);
         return "redirect:/List-todos"; // Redirect after successful submission
     }
